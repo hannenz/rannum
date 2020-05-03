@@ -20,6 +20,8 @@ public class Rollit.Menu : Gtk.Grid {
 
     Gtk.SpinButton max_entry;
 
+    public signal void max_roll_changed();
+
     construct {
         var style_switch = new Granite.ModeSwitch.from_icon_name (
             "display-brightness-symbolic",
@@ -42,6 +44,8 @@ public class Rollit.Menu : Gtk.Grid {
         max_entry.value = Application.settings.get_int("max-roll");
         max_entry.value_changed.connect( () => {
             Application.settings.set_int("max-roll", max_entry.get_value_as_int());
+            // Update header bar
+            max_roll_changed();
         });
 
         var max_setting = new Gtk.Grid ();

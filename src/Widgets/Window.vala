@@ -39,7 +39,7 @@ public class Rollit.Window : Gtk.ApplicationWindow {
         }
 
         var header = new Gtk.HeaderBar ();
-        header.title = "Roll-It";
+        // header.title = "Roll-It";
         //header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         header.get_style_context ().add_class ("default-decoration");
         header.show_close_button = true;
@@ -53,6 +53,10 @@ public class Rollit.Window : Gtk.ApplicationWindow {
         var menu_popover = new Gtk.Popover (menu_button);
         menu_button.popover = menu_popover;
         var menu_grid = new Rollit.Menu ();
+        menu_grid.max_roll_changed.connect( () => {
+            header.title = "Roll-It: %u".printf(menu_grid.get_max_value());
+        });
+        header.title = "Roll-It: %u".printf(menu_grid.get_max_value());
         menu_popover.add (menu_grid);
 
         header.pack_end (menu_button);
